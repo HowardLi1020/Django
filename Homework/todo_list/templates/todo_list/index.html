@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block styles %} {% endblock %} {% block content %}
+<h2>To Do List</h2>
+<form method="POST">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="someThing" class="form-label">
+      <input
+        type="text"
+        name="someThing"
+        class="form-control"
+        id="someThing"
+        placeholder="請輸入代辦事項"
+      />
+    </label>
+    <button type="submit" class="btn btn-primary">送出</button>
+  </div>
+</form>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>狀態</th>
+      <th>代辦事項</th>
+      <th>編輯</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for things in lists %}
+    <tr>
+      <td>
+        <form
+          method="POST"
+          action="{% url 'todo_list:complete' things.todo_id %}"
+        >
+          {% csrf_token %}
+          <div>
+            <label for="task">
+              <input
+                type="checkbox"
+                name="complete"
+                id="task{{things.todo_id}}"
+                onchange="this.form.submit()"
+              />
+              {% if things.completed %}
+              <span>已完成</span>
+              {% else %}
+              <span>未完成</span>
+              {% endif %}
+            </label>
+          </div>
+        </form>
+      </td>
+      <td>{{ things.todo }}</td>
+      <td>
+        <a
+          href="{% url 'todo_list:delete' things.todo_id %}"
+          class="btn btn-danger"
+          >刪除</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %} {% block scripts %} {% endblock %}
