@@ -29,24 +29,27 @@
       <td>
         <form
           method="POST"
-          action="{% url 'todo_list:complete' things.todo_id %}"
+          action="{% url 'todo_list:task_complete' things.todo_id %}"
+          style="display: inline"
         >
           {% csrf_token %}
-          <div>
-            <label for="task">
-              <input
-                type="checkbox"
-                name="complete"
-                id="task{{things.todo_id}}"
-                onchange="this.form.submit()"
-              />
-              {% if things.completed %}
-              <span>已完成</span>
-              {% else %}
-              <span>未完成</span>
-              {% endif %}
-            </label>
-          </div>
+          <input
+            type="checkbox"
+            name="completed"
+            value="True"
+            {%
+            if
+            things.completed
+            %}checked{%
+            endif
+            %}
+            onchange="this.form.submit()"
+          />
+          {% if things.completed %}
+          <span>已完成</span>
+          {% else %}
+          <span>未完成</span>
+          {% endif %}
         </form>
       </td>
       <td>{{ things.todo }}</td>

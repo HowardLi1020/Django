@@ -6,5 +6,5 @@ urlpatterns = [
     # http://127.0.0.1:8000/todo_list/
     path('', views.index, name='index'),
     path('delete/<int:id>', views.delete, name='delete'),
-    path('complete/<int:id>', views.complete, name='complete'),
+    path('task_complete/<int:id>', views.task_complete, name='task_complete'),
 ]

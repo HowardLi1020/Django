@@ -17,15 +17,16 @@ def index(request):
 def delete(request, id):   
     things = toDoList.objects.get(todo_id=id)  
     things.delete()
-
     return redirect('todo_list:index')
 
-def complete(request, id):
+def task_complete(request, id):
     task = toDoList.objects.get(todo_id=id)
-    completed = request.POST.get('completed') == 'true'
-    task.completed = completed  # Update the task's completed status
-    task.save()
+    if request.method == 'POST':
+        completed_value = request.POST.get('completed')
+        task.completed = completed_value == 'True'
+        task.save()  # 記得保存更改
     return redirect('todo_list:index')
+
 
 
 
