@@ -1,8 +1,5 @@
 from django.shortcuts import render, redirect
-from django.db import connection
 from .models import toDoList
-from django.http import HttpResponse, HttpResponseRedirect 
-from datetime import datetime, timedelta
 # Create your views here.
 def index(request):
     thingsToDo = toDoList.objects.all()
@@ -22,10 +19,11 @@ def delete(request, id):
 def task_complete(request, id):
     if request.method == 'POST':
         task = toDoList.objects.get(todo_id=id)
-        completed_value = request.POST.get('completed') == 'True'
+        completed_value = request.POST.get('completed') == 'true'
         task.completed = completed_value
         task.save()
     return redirect('todo_list:index')
+
 
 
 
