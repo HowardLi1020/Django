@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block styles %} {% endblock %} {% block content %}
+{% extends 'base.html' %} {% block content %}
 <h2>To Do List</h2>
 <form method="POST">
   {% csrf_token %}
@@ -15,6 +15,7 @@
     <button type="submit" class="btn btn-primary">送出</button>
   </div>
 </form>
+
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -64,4 +65,4 @@
     {% endfor %}
   </tbody>
 </table>
-{% endblock %} {% block scripts %} {% endblock %}
+{% endblock %}

@@ -20,11 +20,11 @@ def delete(request, id):
     return redirect('todo_list:index')
 
 def task_complete(request, id):
-    task = toDoList.objects.get(todo_id=id)
     if request.method == 'POST':
-        completed_value = request.POST.get('completed')
-        task.completed = completed_value == 'True'
-        task.save()  # 記得保存更改
+        task = toDoList.objects.get(todo_id=id)
+        completed_value = request.POST.get('completed') == 'True'
+        task.completed = completed_value
+        task.save()
     return redirect('todo_list:index')
 
 
